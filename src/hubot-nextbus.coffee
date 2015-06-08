@@ -33,7 +33,7 @@ module.exports = (robot) ->
   robot.respond /(?:bus|nextbus) stop ([A-Z0-9]+)$/i, (msg) ->
     stop_id = msg.match[1]
     robot.logger.debug stop_id
-    queryStopById stop, msg
+    queryStopById stop_id, msg
 
   # get a list of nearby stops
   robot.respond /(?:bus|nextbus) stops$/i, (msg) ->

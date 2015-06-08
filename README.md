@@ -66,7 +66,7 @@ hubot> - 5AVCHUNN - 5TH AVE N & CHURCH ST NB / (Served by: #1 - DOWNTOWN, [...])
 hubot> - UNI6AWN - UNION ST & 6TH AVE N WB / (Served by: #33 - DOWNTOWN, [...])
 ```
 
-### `hubot bcycle stop <stop id>`
+### `hubot nextbus stop <stop id>`
 
 Returns the next bus for a given stop ID.
 

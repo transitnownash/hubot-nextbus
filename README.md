@@ -1,8 +1,8 @@
 # Hubot Nextbus (Nashville)
 
-This Hubot package is a Nashville, Tennessee MTA bus tracker. You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
+[![npm version](https://badge.fury.io/js/hubot-nextbus.svg)](http://badge.fury.io/js/hubot-nextbus) [![Build Status](https://travis-ci.org/stephenyeargin/hubot-nextbus.png)](https://travis-ci.org/stephenyeargin/hubot-nextbus)
 
-[![Build Status](https://travis-ci.org/stephenyeargin/hubot-nextbus.png)](https://travis-ci.org/stephenyeargin/hubot-nextbus)
+This Hubot package is a Nashville, Tennessee MTA bus tracker. You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
 
 ## Getting Started
 

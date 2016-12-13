@@ -6,7 +6,7 @@ This Hubot package is a Nashville, Tennessee MTA bus tracker. You provide an API
 
 ## Getting Started
 
-The first step is to get an API key for this service. As it is currently in a private beta, you'll have to [ask the creator nicely](http://nextbus.jt2k.com/about). He's a swell guy.
+The first step is to get an API key for this service. As it is currently in a private beta, you'll have to [ask the creator nicely](https://nextbus.jt2k.com/about). He's a swell guy.
 
 ## Installation
 

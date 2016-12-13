@@ -51,7 +51,7 @@ module.exports = (robot) ->
       msg.send "Next bus arrives to #{stop.stop_name} at #{stop.next.arrival_time_str} (##{stop.next.route_id} - #{stop.next.route_long_name})"
 
   getAPIResponse = (method, msg, cb) ->
-    url = "http://nextbus.jt2k.com/api/#{method}?key=#{api_key}"
+    url = "https://nextbus.jt2k.com/api/#{method}?key=#{api_key}"
     robot.logger.debug url
     robot.http(url)
       .get() (err, res, body) ->

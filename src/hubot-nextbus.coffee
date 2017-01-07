@@ -30,7 +30,7 @@ module.exports = (robot) ->
         msg.send "No stops found near #{latlon}"
 
   # get a particular stop's next bus
-  robot.respond /(?:bus|nextbus) stop ([A-Z0-9]+)$/i, (msg) ->
+  robot.respond /(?:bus|nextbus) stop ([A-Z0-9_]+)$/i, (msg) ->
     stop_id = msg.match[1]
     robot.logger.debug stop_id
     queryStopById stop_id, msg
@@ -48,7 +48,8 @@ module.exports = (robot) ->
       robot.logger.debug stop
       if !stop.next
         return msg.send "The last bus has already run for today."
-      msg.send "Next bus arrives to #{stop.stop_name} at #{stop.next.arrival_time_str} (##{stop.next.route_id} - #{stop.next.route_long_name})"
+      direction = if stop.next.direction_id == '0' then 'outbound' else 'inbound'
+      msg.send "Next #{direction} bus arrives to #{stop.stop_name} at #{stop.next.arrival_time_str} (##{stop.next.route_id} - #{stop.next.route_long_name})"
 
   getAPIResponse = (method, msg, cb) ->
     url = "https://nextbus.jt2k.com/api/#{method}?key=#{api_key}"

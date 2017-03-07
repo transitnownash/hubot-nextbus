@@ -16,7 +16,7 @@ describe 'hubot-nextbus', ->
     expect(@robot.respond).to.have.been.calledWith(/(?:bus|nextbus)(?: me)?$/i)
 
   it 'registers a stop respond listener', ->
-    expect(@robot.respond).to.have.been.calledWith(/(?:bus|nextbus) stop ([A-Z0-9]+)$/i)
+    expect(@robot.respond).to.have.been.calledWith(/(?:bus|nextbus) stop ([A-Z0-9_]+)$/i)
 
   it 'registers a stops respond listener', ->
     expect(@robot.respond).to.have.been.calledWith(/(?:bus|nextbus) stops$/i)

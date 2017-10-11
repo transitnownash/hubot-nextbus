@@ -1,5 +1,5 @@
 # Description:
-#   Get the next bus for a particular stop
+#   Get the next bus for a particular stop in Nashville
 #
 # Dependencies:
 #   None
@@ -10,8 +10,9 @@
 #
 # Commands:
 #   hubot nextbus
-#   hubot nextbus stop <stop-identifier>
 #   hubot nextbus stops
+#   hubot nextbus stop <stop-identifier>
+
 #
 # Author:
 #   stephenyeargin
@@ -29,12 +30,6 @@ module.exports = (robot) ->
       else
         msg.send "No stops found near #{latlon}"
 
-  # get a particular stop's next bus
-  robot.respond /(?:bus|nextbus) stop ([A-Z0-9_]+)$/i, (msg) ->
-    stop_id = msg.match[1]
-    robot.logger.debug stop_id
-    queryStopById stop_id, msg
-
   # get a list of nearby stops
   robot.respond /(?:bus|nextbus) stops$/i, (msg) ->
     getAPIResponse "findstop/#{latlon}", msg, (stops) ->
@@ -42,6 +37,12 @@ module.exports = (robot) ->
       for stop in stops
         route_list = ("##{direction.route_id} - #{direction.trip_headsign}" for direction in stop.directions)
         msg.send "- #{stop.stop_id} - #{stop.stop_name} / (Served by: #{route_list.join(', ')})"
+
+  # get a particular stop's next bus
+  robot.respond /(?:bus|nextbus) stop ([A-Z0-9_]+)$/i, (msg) ->
+    stop_id = msg.match[1]
+    robot.logger.debug stop_id
+    queryStopById stop_id, msg
 
   queryStopById = (stop_id, msg) ->
     getAPIResponse "stop/#{stop_id}", msg, (stop)->
@@ -56,11 +57,11 @@ module.exports = (robot) ->
     robot.logger.debug url
     robot.http(url)
       .get() (err, res, body) ->
-        if !body
-          return msg.send "No data returned."
         response = JSON.parse(body)
         if err
           return msg.send err
         if response.error
           return msg.send response.error
+        if !body
+          return msg.send "No data returned."
         cb(response)

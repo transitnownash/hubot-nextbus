@@ -22,24 +22,10 @@ Then add **hubot-nextbus** to your `external-scripts.json`:
 
 ### Configuration
 
-The script has two environment variables.
-
-- `HUBOT_NEXTBUS_API_KEY` - Key provided by API creator. See note above.
-- `HUBOT_NEXTBUS_LAT_LON` - Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)
-
-### Heroku
-
-```bash
-heroku config:set HUBOT_NEXTBUS_API_KEY=ABCDEFG12345
-heroku config:set HUBOT_NEXTBUS_LAT_LON=36.1629191,-86.7813481
-```
-
-### Standard
-
-```
-export HUBOT_NEXTBUS_API_KEY=ABCDEFG12345
-export HUBOT_NEXTBUS_LAT_LON=36.1629191,-86.7813481
-```
+| Environment Variable    | Optional | Description                             |
+| ----------------------- | :------: | ----------------------------------------|
+|`HUBOT_NEXTBUS_API_KEY`  | No       | Key provided by API creator. See note above. |
+| `HUBOT_NEXTBUS_LAT_LON` | No       |Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)|
 
 ## Usage
 

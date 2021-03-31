@@ -1,9 +1,6 @@
 # Description:
 #   Get the next bus for a particular stop in Nashville
 #
-# Dependencies:
-#   None
-#
 # Configuration:
 #   HUBOT_NEXTBUS_API_KEY - Key provided by API
 #   HUBOT_NEXTBUS_LAT_LON - Default location for `hubot nextbus`

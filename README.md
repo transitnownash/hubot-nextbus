@@ -2,11 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/hubot-nextbus.svg)](http://badge.fury.io/js/hubot-nextbus) [![Node CI](https://github.com/stephenyeargin/hubot-nextbus/actions/workflows/nodejs.yml/badge.svg)](https://github.com/stephenyeargin/hubot-nextbus/actions/workflows/nodejs.yml)
 
-This Hubot package is a Nashville, Tennessee MTA bus tracker. You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
-
-## Getting Started
-
-The first step is to get an API key for this service. As it is currently in a private beta, you'll have to [ask the creator nicely](https://nextbus.jt2k.com/about). He's a swell guy.
+This Hubot package works with . You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
 
 ## Installation
 
@@ -24,7 +20,6 @@ Then add **hubot-nextbus** to your `external-scripts.json`:
 
 | Environment Variable    | Optional | Description                             |
 | ----------------------- | :------: | ----------------------------------------|
-|`HUBOT_NEXTBUS_API_KEY`  | No       | Key provided by API creator. See note above. |
 | `HUBOT_NEXTBUS_LAT_LON` | No       |Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)|
 
 ## Usage

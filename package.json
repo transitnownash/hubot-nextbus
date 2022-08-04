@@ -38,5 +38,9 @@
     "release": "release-it",
     "test": "mocha --require coffee-script/register \"test/**/*.coffee\" --reporter spec",
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "moment-timezone": "^0.5.34"
   }
 }

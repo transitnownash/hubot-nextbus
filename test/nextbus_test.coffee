@@ -6,29 +6,35 @@ expect = chai.expect
 
 helper = new Helper('../src/nextbus.coffee')
 
+# Alter time as test runs
+originalDateNow = Date.now
+
 describe 'hubot-nextbus', ->
   beforeEach ->
     nock.disableNetConnect()
-
-    nock('https://nextbus.jt2k.com')
-      .get('/api/findstop/0,0?key=foobarbaz')
-      .replyWithFile(200, __dirname + '/fixtures/findstop.json')
-    nock('https://nextbus.jt2k.com')
-      .get(/\/api\/stop\/(.*)\?key=foobarbaz$/)
-      .replyWithFile(200, __dirname + '/fixtures/stop.json')
+    nock('https://gtfs.transitnownash.org')
+      .get('/stops/near/36.1650,-86.78404/1000.json?per_page=5')
+      .replyWithFile(200, __dirname + '/fixtures/stops-near-gps.json')
+    nock('https://gtfs.transitnownash.org')
+      .get('/agencies.json')
+      .replyWithFile(200, __dirname + '/fixtures/agencies.json')
+    nock('https://gtfs.transitnownash.org')
+      .get('/stops/CHA7AWN/trips.json?per_page=2000')
+      .replyWithFile(200, __dirname + '/fixtures/stops-CHA7AWN-trips.json')
 
   afterEach ->
     nock.cleanAll()
+    Date.now = originalDateNow
 
   context 'regular tests', ->
     beforeEach ->
-      process.env.HUBOT_NEXTBUS_API_KEY = 'foobarbaz'
-      process.env.HUBOT_NEXTBUS_LAT_LON = '0,0'
+      Date.now = () ->
+        return Date.parse('Fri, 1 Oct 2021 12:00:00 UTC')
+      process.env.HUBOT_NEXTBUS_LAT_LON = '36.1650,-86.78404'
       @room = helper.createRoom()
 
     afterEach ->
       @room.destroy()
-      delete process.env.HUBOT_NEXTBUS_API_KEY
       delete process.env.HUBOT_NEXTBUS_LAT_LON
 
     # hubot nextbus
@@ -39,7 +45,8 @@ describe 'hubot-nextbus', ->
         try
           expect(selfRoom.messages).to.eql [
             ['alice', '@hubot nextbus']
-            ['hubot', 'Next outbound bus arrives to 6TH AVE N & CHURCH ST SB at 3:38:08 pm (#3 - WEST END - WHITE BRIDGE)']
+            ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
+            ['hubot', '   7:01:09   #50 - CHARLOTTE WALMART            in a minute    \n   7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n   7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes  \n   7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes  \n   7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
           ]
           done()
         catch err
@@ -50,12 +57,13 @@ describe 'hubot-nextbus', ->
     # hubot nextbus stop <id>
     it 'returns the next bus for a particular stop', (done) ->
       selfRoom = @room
-      selfRoom.user.say('alice', '@hubot nextbus stop 6AVCHUSN')
+      selfRoom.user.say('alice', '@hubot nextbus stop CHA7AWN')
       setTimeout(() ->
         try
           expect(selfRoom.messages).to.eql [
-            ['alice', '@hubot nextbus stop 6AVCHUSN']
-            ['hubot', 'Next outbound bus arrives to 6TH AVE N & CHURCH ST SB at 3:38:08 pm (#3 - WEST END - WHITE BRIDGE)']
+            ['alice', '@hubot nextbus stop CHA7AWN']
+            ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
+            ['hubot', '   7:01:09   #50 - CHARLOTTE WALMART            in a minute    \n   7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n   7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes  \n   7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes  \n   7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
           ]
           done()
         catch err
@@ -72,11 +80,7 @@ describe 'hubot-nextbus', ->
           expect(selfRoom.messages).to.eql [
             ['alice', '@hubot nextbus stops']
             ['hubot', 'List of nearby stops:']
-            ['hubot', '- 6AVCHUSN - 6TH AVE N & CHURCH ST SB / (Served by: #3 - WHITE BRIDGE, #5 - BELLEVUE, #7 - GREEN HILLS, #38 - ANTIOCH)']
-            ['hubot', '- 7AVCHUSN - 7TH AVE N & CHURCH ST SB / (Served by: #1 - 100 OAKS MALL, #8 - 8TH AVE, LIPSCOMB)']
-            ['hubot', '- 6AVCOMSN - 6TH AVE N & COMMERCE ST SB / (Served by: #3 - WHITE BRIDGE, #5 - BELLEVUE, #7 - GREEN HILLS)']
-            ['hubot', '- 5AVCHUNN - 5TH AVE N & CHURCH ST NB / (Served by: #60 - BICENTENNIAL MALL,TSU, #61 - BICENTENNIAL MALL)']
-            ['hubot', '- UNI6AWN - UNION ST & 6TH AVE N WB / (Served by: #33 - DOWNTOWN, #37 - DOWNTOWN, #37 - MCMURRAY)']
+            ['hubot', '- [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB\n- [CHA7AEN] CHARLOTTE AVE & 7TH AVE N EB\n- [6AVDEASN] 6TH AVE & DEADERICK ST SB\n- [6AVDEANN] 6TH AVE N & DEADERICK ST NB\n- [UNI7AWN] UNION ST & 7TH AVE N WB']
           ]
           done()
         catch err

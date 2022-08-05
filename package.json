@@ -1,6 +1,6 @@
 {
   "name": "hubot-nextbus",
-  "description": "A Nashville MTA integration.",
+  "description": "Shows when the next transit vehicle will arrive at a particular stop.",
   "version": "1.0.4",
   "author": "Stephen Yeargin <stephen@yearg.in>",
   "homepage": "https://github.com/stephenyeargin/hubot-nextbus",
@@ -10,7 +10,8 @@
     "hubot-scripts",
     "nextbus",
     "bus",
-    "nashville"
+    "gtfs",
+    "gtfs-rails-api"
   ],
   "repository": {
     "type": "git",

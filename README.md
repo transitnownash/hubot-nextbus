@@ -2,11 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/hubot-nextbus.svg)](http://badge.fury.io/js/hubot-nextbus) [![Node CI](https://github.com/stephenyeargin/hubot-nextbus/actions/workflows/nodejs.yml/badge.svg)](https://github.com/stephenyeargin/hubot-nextbus/actions/workflows/nodejs.yml)
 
-This Hubot package is a Nashville, Tennessee MTA bus tracker. You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
-
-## Getting Started
-
-The first step is to get an API key for this service. As it is currently in a private beta, you'll have to [ask the creator nicely](https://nextbus.jt2k.com/about). He's a swell guy.
+This Hubot package works with . You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
 
 ## Installation
 
@@ -24,8 +20,8 @@ Then add **hubot-nextbus** to your `external-scripts.json`:
 
 | Environment Variable    | Optional | Description                             |
 | ----------------------- | :------: | ----------------------------------------|
-|`HUBOT_NEXTBUS_API_KEY`  | No       | Key provided by API creator. See note above. |
-| `HUBOT_NEXTBUS_LAT_LON` | No       |Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)|
+| `HUBOT_NEXTBUS_LAT_LON` | No       | Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)|
+| `HUBOT_NEXTBUS_BASE_URL`| Yes      | URL of a `gtfs-rails-api` instance |
 
 ## Usage
 
@@ -35,7 +31,12 @@ Returns the next bus for the nearest stop.
 
 ```
 user> hubot nextbus
-hubot> Next bus arrives to 5TH AVE N & THE ARCADE NB at 9:45:38 pm (#61 - GULCH - GREEN CIRCUIT)
+hubot> Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
+  7:01:09   #50 - CHARLOTTE WALMART            in a minute
+  7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes
+  7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes
+  7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes
+  7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes
 ```
 
 ### `hubot nextbus stops`
@@ -44,12 +45,12 @@ Get the list of stops nearby your configured latitude and longitude.
 
 ```
 user> hubot nextbus stops
-hubot> List of nearby stops:
-hubot> - 6AVCHUSN - 6TH AVE N & CHURCH ST SB / (Served by: #3 - WHITE BRIDGE, [...])
-hubot> - 5AUNISM - 5TH AVE & THE ARCADE SB / (Served by: #1 - 100 OAKS MALL)
-hubot> - 5AVCHUNM - 5TH AVE N & THE ARCADE NB / (Served by: #1 - DOWNTOWN, [...])
-hubot> - 5AVCHUNN - 5TH AVE N & CHURCH ST NB / (Served by: #1 - DOWNTOWN, [...])
-hubot> - UNI6AWN - UNION ST & 6TH AVE N WB / (Served by: #33 - DOWNTOWN, [...])
+hubot> List of nearby stops:']
+hubot> - [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
+- [CHA7AEN] CHARLOTTE AVE & 7TH AVE N EB
+- [6AVDEASN] 6TH AVE & DEADERICK ST SB
+- [6AVDEANN] 6TH AVE N & DEADERICK ST NB
+- [UNI7AWN] UNION ST & 7TH AVE N WB
 ```
 
 ### `hubot nextbus stop <stop id>`
@@ -58,5 +59,10 @@ Returns the next bus for a given stop ID.
 
 ```
 user> hubot nextbus stop 5AVCHUNM
-hubot> Next bus arrives to 5TH AVE N & THE ARCADE NB at 9:45:38 pm (#61 - GULCH - GREEN CIRCUIT)
+hubot> Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
+  7:01:09   #50 - CHARLOTTE WALMART            in a minute
+  7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes
+  7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes
+  7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes
+  7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes
 ```

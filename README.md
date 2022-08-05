@@ -45,7 +45,7 @@ Get the list of stops nearby your configured latitude and longitude.
 
 ```
 user> hubot nextbus stops
-hubot> List of nearby stops:']
+hubot> List of nearby stops:
 hubot> - [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
 - [CHA7AEN] CHARLOTTE AVE & 7TH AVE N EB
 - [6AVDEASN] 6TH AVE & DEADERICK ST SB

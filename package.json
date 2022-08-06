@@ -3,7 +3,7 @@
   "description": "Shows when the next transit vehicle will arrive at a particular stop.",
   "version": "1.0.4",
   "author": "Stephen Yeargin <stephen@yearg.in>",
-  "homepage": "https://github.com/stephenyeargin/hubot-nextbus",
+  "homepage": "https://github.com/transitnownash/hubot-nextbus",
   "license": "MIT",
   "keywords": [
     "hubot",
@@ -15,10 +15,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/stephenyeargin/hubot-nextbus.git"
+    "url": "git://github.com/transitnownash/hubot-nextbus.git"
   },
   "bugs": {
-    "url": "https://github.com/stephenyeargin/hubot-nextbus/issues"
+    "url": "https://github.com/transitnownash/hubot-nextbus/issues"
   },
   "peerDependencies": {
     "hubot": "^3"

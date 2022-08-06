@@ -14,7 +14,7 @@
 # Author:
 #   stephenyeargin
 
-moment = require('moment-timezone')
+moment = require('moment')
 AsciiTable = require('ascii-table')
 baseURL = process.env.HUBOT_NEXTBUS_BASE_URL || 'https://gtfs.transitnownash.org'
 latlon = process.env.HUBOT_NEXTBUS_LAT_LON
@@ -48,9 +48,12 @@ module.exports = (robot) ->
       # Override timezone for moment() calls
       process.env.TZ = agencies.data[0].agency_timezone
       robot.logger.debug process.env.TZ
-
+      robot.logger.debug 'Current Time:', moment()
       getAPIResponse "stops/#{stop_id}/trips.json?per_page=2000", msg, (trips) ->
-        nextTrips = trips.data.filter((i) => moment(moment().toISOString().split('T')[0] + ' ' + i.stop_times[0].arrival_time.trim().padStart(8, '0')).isAfter(moment(), 'second'))
+        nextTrips = trips.data.filter((trip) =>
+          tripTime = formatTripTimeAsMoment(trip.stop_times[0].arrival_time)
+          return tripTime.isAfter(moment(), 'second')
+        )
         robot.logger.debug nextTrips
         if nextTrips.length == 0
           return msg.send "The last bus has already run for today."
@@ -59,10 +62,18 @@ module.exports = (robot) ->
         stop = nextTrips[0].stop_times[0].stop
         msg.send "Upcoming Trips for [#{stop.stop_gid}] #{stop.stop_name}"
         for trip in nextTrips.slice(0, 5)
-          time = moment(moment().toISOString().split('T')[0] + ' ' + trip.stop_times[0].arrival_time.trim().padStart(8, '0'));
-          table.addRow [trip.stop_times[0].arrival_time, "##{trip.route_gid} - #{trip.trip_headsign}", time.fromNow()]
+          tripTime = formatTripTimeAsMoment(trip.stop_times[0].arrival_time)
+          table.addRow [formatTripTimeAsMoment(trip.stop_times[0].arrival_time).format('LT'), "##{trip.route_gid} - #{trip.trip_headsign}", tripTime.fromNow()]
         table.removeBorder()
         msg.send table.toString()
+
+  formatTripTimeAsMoment = (timeStr) ->
+    if RegExp('^2[4-9]:').test(timeStr)
+      timeStr = (parseInt(timeStr.substr(0,2), 10) - 24) + timeStr.substr(2,8)
+      tripTime = moment(moment().format('YYYY-MM-DD') + ' ' + timeStr.padStart(8, '0')).add(1, 'days')
+    else
+      tripTime = moment(moment().format('YYYY-MM-DD') + ' ' + timeStr.trim().padStart(8, '0'))
+    return tripTime
 
   getAPIResponse = (path, msg, cb) ->
     url = "#{baseURL}/#{path}"

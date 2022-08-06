@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "moment-timezone": "^0.5.34"
+    "moment": "^2.29.4"
   }
 }

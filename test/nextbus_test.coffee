@@ -46,7 +46,7 @@ describe 'hubot-nextbus', ->
           expect(selfRoom.messages).to.eql [
             ['alice', '@hubot nextbus']
             ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
-            ['hubot', '   7:01:09   #50 - CHARLOTTE WALMART            in a minute    \n   7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n   7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes  \n   7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes  \n   7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
+            ['hubot', '  7:01 AM   #50 - CHARLOTTE WALMART            in a minute    \n  7:15 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n  7:16 AM   #50 - CHARLOTTE WALMART            in 16 minutes  \n  7:31 AM   #50 - CHARLOTTE WALMART            in 31 minutes  \n  7:35 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
           ]
           done()
         catch err
@@ -63,7 +63,7 @@ describe 'hubot-nextbus', ->
           expect(selfRoom.messages).to.eql [
             ['alice', '@hubot nextbus stop CHA7AWN']
             ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
-            ['hubot', '   7:01:09   #50 - CHARLOTTE WALMART            in a minute    \n   7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n   7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes  \n   7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes  \n   7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
+            ['hubot', '  7:01 AM   #50 - CHARLOTTE WALMART            in a minute    \n  7:15 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n  7:16 AM   #50 - CHARLOTTE WALMART            in 16 minutes  \n  7:31 AM   #50 - CHARLOTTE WALMART            in 31 minutes  \n  7:35 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
           ]
           done()
         catch err
@@ -81,6 +81,34 @@ describe 'hubot-nextbus', ->
             ['alice', '@hubot nextbus stops']
             ['hubot', 'List of nearby stops:']
             ['hubot', '- [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB\n- [CHA7AEN] CHARLOTTE AVE & 7TH AVE N EB\n- [6AVDEASN] 6TH AVE & DEADERICK ST SB\n- [6AVDEANN] 6TH AVE N & DEADERICK ST NB\n- [UNI7AWN] UNION ST & 7TH AVE N WB']
+          ]
+          done()
+        catch err
+          done err
+        return
+      , 1000)
+
+  context 'time spans days', ->
+    beforeEach ->
+      Date.now = () ->
+        return Date.parse('Fri, 1 Oct 2021 04:00:00 UTC')
+      process.env.HUBOT_NEXTBUS_LAT_LON = '36.1650,-86.78404'
+      @room = helper.createRoom()
+
+    afterEach ->
+      @room.destroy()
+      delete process.env.HUBOT_NEXTBUS_LAT_LON
+
+    # hubot nextbus
+    it 'returns the next bus for closest stop', (done) ->
+      selfRoom = @room
+      selfRoom.user.say('alice', '@hubot nextbus')
+      setTimeout(() ->
+        try
+          expect(selfRoom.messages).to.eql [
+            ['alice', '@hubot nextbus']
+            ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
+            ['hubot', '  11:16 PM   #50 - CHARLOTTE WALMART            in 16 minutes  \n  11:15 PM   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n  11:46 PM   #50 - CHARLOTTE WALMART            in an hour     \n  12:16 AM   #50 - CHARLOTTE WALMART            in an hour     ']
           ]
           done()
         catch err

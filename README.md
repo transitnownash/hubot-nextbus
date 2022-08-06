@@ -32,11 +32,11 @@ Returns the next bus for the nearest stop.
 ```
 user> hubot nextbus
 hubot> Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
-  7:01:09   #50 - CHARLOTTE WALMART            in a minute
-  7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes
-  7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes
-  7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes
-  7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes
+  7:01 AM   #50 - CHARLOTTE WALMART            in a minute    
+  7:15 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  
+  7:16 AM   #50 - CHARLOTTE WALMART            in 16 minutes  
+  7:31 AM   #50 - CHARLOTTE WALMART            in 31 minutes  
+  7:35 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  
 ```
 
 ### `hubot nextbus stops`
@@ -58,11 +58,9 @@ hubot> - [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
 Returns the next bus for a given stop ID.
 
 ```
-user> hubot nextbus stop 5AVCHUNM
-hubot> Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB
-  7:01:09   #50 - CHARLOTTE WALMART            in a minute
-  7:15:49   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes
-  7:16:09   #50 - CHARLOTTE WALMART            in 16 minutes
-  7:31:09   #50 - CHARLOTTE WALMART            in 31 minutes
-  7:35:49   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes
+user> hubot nextbus stop PORGRENN
+hubot> Upcoming Trips for [PORGRENN] PORTER RD & GREENWOOD AVE NB
+  10:34 PM   #4 - INGLEWOOD   in 25 minutes  
+  11:34 PM   #4 - INGLEWOOD   in an hour     
+  12:32 AM   #4 - INGLEWOOD   in 2 hours 
 ```

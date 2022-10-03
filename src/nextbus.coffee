@@ -15,17 +15,17 @@
 # Author:
 #   stephenyeargin
 
-moment = require('moment')
-AsciiTable = require('ascii-table')
-baseURL = process.env.HUBOT_NEXTBUS_BASE_URL || 'https://gtfs.transitnownash.org'
-latlon = process.env.HUBOT_NEXTBUS_LAT_LON
-defaultStopId = process.env.HUBOT_NEXTBUS_STOP_ID
-
 module.exports = (robot) ->
+  moment = require('moment')
+  AsciiTable = require('ascii-table')
+  baseURL = process.env.HUBOT_NEXTBUS_BASE_URL || 'https://gtfs.transitnownash.org'
+  latlon = process.env.HUBOT_NEXTBUS_LAT_LON
+  defaultStopId = process.env.HUBOT_NEXTBUS_STOP_ID
+
   # query the default stop ID or location's closest bus stop
   robot.respond /(?:bus|nextbus)(?: me)?$/i, (msg) ->
     if defaultStopId
-      queryStopById stop_id, msg
+      queryStopById defaultStopId, msg
       return
 
     getAPIResponse "stops/near/#{latlon}/1000.json?per_page=5", msg, (stops) ->

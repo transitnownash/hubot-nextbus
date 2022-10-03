@@ -21,7 +21,8 @@ Then add **hubot-nextbus** to your `external-scripts.json`:
 | Environment Variable    | Optional | Description                             |
 | ----------------------- | :------: | ----------------------------------------|
 | `HUBOT_NEXTBUS_LAT_LON` | No       | Default location for `hubot nextbus`, separated by a comma. (e.g. `36.1629191,-86.7813481`)|
-| `HUBOT_NEXTBUS_BASE_URL`| Yes      | URL of a `gtfs-rails-api` instance |
+| `HUBOT_NEXTBUS_STOP_ID` | Yes       | Specific identifier to use with `hubot nextbus`; if not set, falls back to latitude/longitude |
+| `HUBOT_NEXTBUS_BASE_URL`| Yes      | URL of a `gtfs-rails-api` instance; Defaults to Nashville, TN. |
 
 ## Usage
 

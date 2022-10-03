@@ -26,7 +26,7 @@ describe 'hubot-nextbus', ->
     nock.cleanAll()
     Date.now = originalDateNow
 
-  context 'regular tests', ->
+  context 'regular tests with latitude/longitude set', ->
     beforeEach ->
       Date.now = () ->
         return Date.parse('Fri, 1 Oct 2021 12:00:00 UTC')
@@ -81,6 +81,36 @@ describe 'hubot-nextbus', ->
             ['alice', '@hubot nextbus stops']
             ['hubot', 'List of nearby stops:']
             ['hubot', '- [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB\n- [CHA7AEN] CHARLOTTE AVE & 7TH AVE N EB\n- [6AVDEASN] 6TH AVE & DEADERICK ST SB\n- [6AVDEANN] 6TH AVE N & DEADERICK ST NB\n- [UNI7AWN] UNION ST & 7TH AVE N WB']
+          ]
+          done()
+        catch err
+          done err
+        return
+      , 1000)
+
+  context 'regular tests with default stop ID set', ->
+    beforeEach ->
+      Date.now = () ->
+        return Date.parse('Fri, 1 Oct 2021 12:00:00 UTC')
+      process.env.HUBOT_NEXTBUS_LAT_LON = '0,0'
+      process.env.HUBOT_NEXTBUS_STOP_ID = 'CHA7AWN'
+      @room = helper.createRoom()
+
+    afterEach ->
+      @room.destroy()
+      delete process.env.HUBOT_NEXTBUS_LAT_LON
+      delete process.env.HUBOT_NEXTBUS_STOP_ID
+
+    # hubot nextbus
+    it 'returns the next bus for closest stop', (done) ->
+      selfRoom = @room
+      selfRoom.user.say('alice', '@hubot nextbus')
+      setTimeout(() ->
+        try
+          expect(selfRoom.messages).to.eql [
+            ['alice', '@hubot nextbus']
+            ['hubot', 'Upcoming Trips for [CHA7AWN] CHARLOTTE AVE & 7TH AVE N WB']
+            ['hubot', '  7:01 AM   #50 - CHARLOTTE WALMART            in a minute    \n  7:15 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 16 minutes  \n  7:16 AM   #50 - CHARLOTTE WALMART            in 16 minutes  \n  7:31 AM   #50 - CHARLOTTE WALMART            in 31 minutes  \n  7:35 AM   #17 - GREEN HILLS VIA 12TH AVE S   in 36 minutes  ']
           ]
           done()
         catch err

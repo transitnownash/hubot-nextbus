@@ -3,7 +3,8 @@
 #
 # Configuration:
 #   HUBOT_NEXTBUS_BASE_URL - URL of a `gtfs-rails-api` instance
-#   HUBOT_NEXTBUS_LAT_LON - Default location for `hubot nextbus`
+#   HUBOT_NEXTBUS_LAT_LON - Default location for stop search
+#   HUBOT_NEXTBUS_STOP_ID - Default stop for `hubot nextbus`
 #
 # Commands:
 #   hubot nextbus
@@ -18,10 +19,15 @@ moment = require('moment')
 AsciiTable = require('ascii-table')
 baseURL = process.env.HUBOT_NEXTBUS_BASE_URL || 'https://gtfs.transitnownash.org'
 latlon = process.env.HUBOT_NEXTBUS_LAT_LON
+defaultStopId = process.env.HUBOT_NEXTBUS_STOP_ID
 
 module.exports = (robot) ->
-  # query the default location's closest bus stop
+  # query the default stop ID or location's closest bus stop
   robot.respond /(?:bus|nextbus)(?: me)?$/i, (msg) ->
+    if defaultStopId
+      queryStopById stop_id, msg
+      return
+
     getAPIResponse "stops/near/#{latlon}/1000.json?per_page=5", msg, (stops) ->
       if stops.total > 0
         queryStopById stops.data[0].stop_gid, msg

@@ -1,7 +1,7 @@
 {
   "name": "hubot-nextbus",
   "description": "Shows when the next transit vehicle will arrive at a particular stop.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Stephen Yeargin <stephen@yearg.in>",
   "homepage": "https://github.com/transitnownash/hubot-nextbus",
   "license": "MIT",

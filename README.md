@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/hubot-nextbus.svg)](http://badge.fury.io/js/hubot-nextbus) [![Node CI](https://github.com/transitnownash/hubot-nextbus/actions/workflows/nodejs.yml/badge.svg)](https://github.com/transitnownash/hubot-nextbus/actions/workflows/nodejs.yml)
 
-This Hubot package works with . You provide an API key and a latitude and longitude for it to obtain the next expect bus to a particular set of nearby stops.
+This Hubot package works with [gtfs-rails-api](https://github.com/transitnownash/gtfs-rails-api). You provide an endpoint along with a latitude and longitude for it to obtain the next expected bus to a particular set of nearby stops.
 
 ## Installation
 

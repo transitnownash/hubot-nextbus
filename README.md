@@ -1,4 +1,4 @@
-# Hubot Nextbus (Nashville)
+# Hubot Nextbus
 
 [![npm version](https://badge.fury.io/js/hubot-nextbus.svg)](http://badge.fury.io/js/hubot-nextbus) [![Node CI](https://github.com/transitnownash/hubot-nextbus/actions/workflows/nodejs.yml/badge.svg)](https://github.com/transitnownash/hubot-nextbus/actions/workflows/nodejs.yml)
 

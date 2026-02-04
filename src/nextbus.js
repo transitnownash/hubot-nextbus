@@ -53,33 +53,97 @@ module.exports = (robot) => {
     return moment(`${moment().format('YYYY-MM-DD')} ${timeStr.trim().padStart(8, '0')}`);
   };
 
+  const getRealTimeStatus = (stopTime) => {
+    // Check if realtime data is available
+    if (!stopTime.realtime || !stopTime.realtime.departure) {
+      return '';
+    }
+
+    const scheduled = formatTripTimeAsMoment(stopTime.departure_time);
+    const actual = formatTripTimeAsMoment(stopTime.realtime.departure);
+    const diffMinutes = actual.diff(scheduled, 'minutes');
+
+    if (diffMinutes === 0) {
+      return 'On time';
+    } if (diffMinutes > 0) {
+      return `${diffMinutes}m late`;
+    }
+    return `${Math.abs(diffMinutes)}m early`;
+  };
+
+  const formatAlerts = (alerts) => {
+    if (!alerts || alerts.length === 0) {
+      return '';
+    }
+
+    const alertLines = alerts.map((alert) => {
+      const headerText = alert.header_text?.translation?.[0]?.text || 'Service Alert';
+      return `⚠️  *${headerText.trim()}*`;
+    });
+
+    return alertLines.join('\n');
+  };
+
   const queryStopById = (stopId, msg) => getAPIResponse('agencies.json', msg, (agencies) => {
     // Override timezone for moment() calls
     process.env.TZ = agencies.data[0].agency_timezone;
     robot.logger.debug(process.env.TZ);
     robot.logger.debug('Current Time:', moment());
-    getAPIResponse(`stops/${stopId}/trips.json?per_page=2000`, msg, (trips) => {
-      const nextTrips = trips.data.filter((trip) => {
-        const tripTime = formatTripTimeAsMoment(trip.stop_times[0].arrival_time);
+    getAPIResponse(`stops/${stopId}/next.json`, msg, (response) => {
+      const {
+        stop,
+        next_trip: nextTrip,
+        upcoming_trips: upcomingTrips,
+        alerts,
+        vehicle_positions: vehiclePositions,
+      } = response;
+
+      // Show alerts if any exist
+      const alertMessage = formatAlerts(alerts);
+      if (alertMessage) {
+        msg.send(alertMessage);
+      }
+
+      // Combine next trip with upcoming trips to get all trips
+      const allTrips = nextTrip ? [nextTrip, ...upcomingTrips] : upcomingTrips;
+
+      const nextTripsData = allTrips.filter((tripData) => {
+        const tripTime = formatTripTimeAsMoment(tripData.stop_time.arrival_time);
         return tripTime.isAfter(moment(), 'second');
       });
-      robot.logger.debug(nextTrips);
-      if (nextTrips.length === 0) {
+
+      robot.logger.debug(nextTripsData);
+      if (nextTripsData.length === 0) {
         msg.send('The last bus has already run for today.');
         return;
       }
 
       const table = new AsciiTable();
-      const {
-        stop,
-      } = nextTrips[0].stop_times[0];
-      msg.send(`Upcoming Trips for [${stop.stop_gid}] ${stop.stop_name}`);
-      nextTrips.slice(0, 5).forEach((trip) => {
-        const tripTime = formatTripTimeAsMoment(trip.stop_times[0].arrival_time);
-        table.addRow([formatTripTimeAsMoment(trip.stop_times[0].arrival_time).format('LT'), `#${trip.route_gid} - ${trip.trip_headsign}`, tripTime.fromNow()]);
+      nextTripsData.slice(0, 5).forEach((tripData) => {
+        const tripTime = formatTripTimeAsMoment(tripData.stop_time.arrival_time);
+        const realtimeStatus = getRealTimeStatus(tripData.stop_time);
+        const hasVehicle = vehiclePositions
+          && vehiclePositions.some((vp) => vp.trip && vp.trip.trip_id === tripData.trip.trip_gid);
+        const busIndicator = hasVehicle ? ' 🚌' : '';
+        const timeUntilText = realtimeStatus ? `${tripTime.fromNow()} (${realtimeStatus})` : tripTime.fromNow();
+        const columns = [
+          formatTripTimeAsMoment(tripData.stop_time.arrival_time).format('LT'),
+          `#${tripData.trip.route_gid} - ${tripData.trip.trip_headsign}${busIndicator}`,
+          timeUntilText,
+        ];
+        table.addRow(columns);
       });
+      const adapterName = robot.adapterName ?? robot.adapter?.name ?? '';
       table.removeBorder();
-      msg.send(table.toString());
+      const tableOutput = table.toString().split('\n').map((line) => line.trimEnd()).join('\n');
+
+      const heading = `🚏 *${stop.stop_name}*`;
+
+      if (/slack/i.test(adapterName)) {
+        msg.send(`${heading}\n\`\`\`\n${tableOutput}\n\`\`\``);
+        return;
+      }
+      msg.send(`${heading}\n${tableOutput}`);
     });
   });
 

@@ -47,7 +47,7 @@ describe('hubot-nextbus', () => {
     // hubot nextbus
     it('returns the next bus for closest stop', async () => {
       await room.user.say('alice', '@hubot nextbus');
-      await new Promise((resolve) => { setTimeout(resolve, 100); });
+      await room.waitForMessages(3);
       expect(room.messages).toEqual([
         ['alice', '@hubot nextbus'],
         [
@@ -69,7 +69,7 @@ describe('hubot-nextbus', () => {
     // hubot nextbus stop <id>
     it('returns the next bus for a particular stop', async () => {
       await room.user.say('alice', '@hubot nextbus stop BRO12WN');
-      await new Promise((resolve) => { setTimeout(resolve, 100); });
+      await room.waitForMessages(3);
       expect(room.messages).toEqual([
         ['alice', '@hubot nextbus stop BRO12WN'],
         [
@@ -91,7 +91,7 @@ describe('hubot-nextbus', () => {
     // hubot nextbus stops
     it('returns the list of nearby stops', async () => {
       await room.user.say('alice', '@hubot nextbus stops');
-      await new Promise((resolve) => { setTimeout(resolve, 100); });
+      await room.waitForMessages(3);
       expect(room.messages).toEqual([
         ['alice', '@hubot nextbus stops'],
         ['hubot', 'List of nearby stops:'],
@@ -124,7 +124,7 @@ describe('hubot-nextbus', () => {
     // hubot nextbus
     it('returns the next bus for closest stop', async () => {
       await room.user.say('alice', '@hubot nextbus');
-      await new Promise((resolve) => { setTimeout(resolve, 100); });
+      await room.waitForMessages(3);
       expect(room.messages).toEqual([
         ['alice', '@hubot nextbus'],
         [
@@ -155,7 +155,7 @@ describe('hubot-nextbus', () => {
 
     it('returns the next bus for specific stop', async () => {
       await room.user.say('alice', '@hubot nextbus stop PORGRESF');
-      await new Promise((resolve) => { setTimeout(resolve, 100); });
+      await room.waitForMessages(2);
       expect(room.messages).toEqual([
         ['alice', '@hubot nextbus stop PORGRESF'],
         [

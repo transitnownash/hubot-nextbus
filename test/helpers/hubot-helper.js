@@ -62,6 +62,14 @@ class Helper {
         if (robot.server) robot.server.close();
         robot.brain.close();
       },
+      waitForMessages: async (count, timeout = 2000) => {
+        const start = Date.now();
+        while (messages.length < count) {
+          if (Date.now() - start > timeout) break;
+          // eslint-disable-next-line no-await-in-loop
+          await new Promise((resolve) => { setTimeout(resolve, 10); });
+        }
+      },
     };
   }
 }

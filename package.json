@@ -32,7 +32,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "hubot": "^14.1.0",
     "husky": "^9.1.7",
-    "nock": "^13.4.0",
+    "nock": "^14.0.17",
     "vitest": "^4.1.6"
   },
   "main": "index.js",

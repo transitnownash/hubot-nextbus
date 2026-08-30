@@ -4,11 +4,11 @@
   "per_page": 5,
   "data": [
     {
-      "id": 216884,
+      "id": 288382,
       "stop_gid": "BRO12WN",
-      "stop_code": "BRO12WN",
-      "stop_name": "BROADWAY AVE & 12TH AVE N WB",
-      "stop_desc": "103 12TH AVE & BROADWAY AVE",
+      "stop_code": "489",
+      "stop_name": "BROADWAY AVE \u0026 12TH AVE N WB",
+      "stop_desc": "103 12TH AVE \u0026 BROADWAY AVE",
       "stop_lat": "36.156751",
       "stop_lon": "-86.787397",
       "zone_gid": null,
@@ -18,15 +18,15 @@
       "parent_station_id": null,
       "stop_timezone": null,
       "wheelchair_boarding": "0",
-      "created_at": "2026-02-01T23:37:21.829-06:00",
-      "updated_at": "2026-02-01T23:37:21.829-06:00"
+      "created_at": "2026-08-30T04:05:14.980-05:00",
+      "updated_at": "2026-08-30T04:05:14.980-05:00"
     },
     {
-      "id": 217797,
+      "id": 289285,
       "stop_gid": "BRO12AEF",
-      "stop_code": "BRO12AEF",
-      "stop_name": "BROADWAY AVE & 12TH AVE EB",
-      "stop_desc": "1232 BROADWAY AVE & 12TH AVE",
+      "stop_code": "4588",
+      "stop_name": "BROADWAY AVE \u0026 12TH AVE EB",
+      "stop_desc": "1232 BROADWAY AVE \u0026 12TH AVE",
       "stop_lat": "36.15665",
       "stop_lon": "-86.787086",
       "zone_gid": "0",
@@ -36,15 +36,15 @@
       "parent_station_id": null,
       "stop_timezone": null,
       "wheelchair_boarding": "0",
-      "created_at": "2026-02-01T23:37:24.777-06:00",
-      "updated_at": "2026-02-01T23:37:24.777-06:00"
+      "created_at": "2026-08-30T04:05:15.505-05:00",
+      "updated_at": "2026-08-30T04:05:15.505-05:00"
     },
     {
-      "id": 218007,
+      "id": 289485,
       "stop_gid": "11APORSF",
-      "stop_code": "11APORSF",
-      "stop_name": "11TH AVE & PORTER ST SB",
-      "stop_desc": "303 11TH AVE & PORTER ST",
+      "stop_code": "5275",
+      "stop_name": "11TH AVE \u0026 PORTER ST SB",
+      "stop_desc": "303 11TH AVE \u0026 PORTER ST",
       "stop_lat": "36.157903",
       "stop_lon": "-86.786781",
       "zone_gid": null,
@@ -54,15 +54,15 @@
       "parent_station_id": null,
       "stop_timezone": null,
       "wheelchair_boarding": null,
-      "created_at": "2026-02-01T23:37:24.777-06:00",
-      "updated_at": "2026-02-01T23:37:24.777-06:00"
+      "created_at": "2026-08-30T04:05:15.505-05:00",
+      "updated_at": "2026-08-30T04:05:15.505-05:00"
     },
     {
-      "id": 218012,
+      "id": 289490,
       "stop_gid": "11APORNN",
-      "stop_code": "11APORNN",
-      "stop_name": "11TH AVE & PORTER ST NB",
-      "stop_desc": "302 11TH AVE & PORTER ST",
+      "stop_code": "5281",
+      "stop_name": "11TH AVE \u0026 PORTER ST NB",
+      "stop_desc": "302 11TH AVE \u0026 PORTER ST",
       "stop_lat": "36.157887",
       "stop_lon": "-86.786591",
       "zone_gid": null,
@@ -72,14 +72,14 @@
       "parent_station_id": null,
       "stop_timezone": null,
       "wheelchair_boarding": null,
-      "created_at": "2026-02-01T23:37:24.777-06:00",
-      "updated_at": "2026-02-01T23:37:24.777-06:00"
+      "created_at": "2026-08-30T04:05:15.505-05:00",
+      "updated_at": "2026-08-30T04:05:15.505-05:00"
     },
     {
-      "id": 217849,
+      "id": 289337,
       "stop_gid": "BRO10AEN",
-      "stop_code": "BRO10AEN",
-      "stop_name": "BROADWAY & 10TH AVE EB",
+      "stop_code": "4825",
+      "stop_name": "BROADWAY \u0026 10TH AVE EB",
       "stop_desc": "937 ",
       "stop_lat": "36.157678",
       "stop_lon": "-86.78468",
@@ -90,8 +90,8 @@
       "parent_station_id": null,
       "stop_timezone": null,
       "wheelchair_boarding": "0",
-      "created_at": "2026-02-01T23:37:24.777-06:00",
-      "updated_at": "2026-02-01T23:37:24.777-06:00"
+      "created_at": "2026-08-30T04:05:15.505-05:00",
+      "updated_at": "2026-08-30T04:05:15.505-05:00"
     }
   ]
 }

@@ -23,6 +23,9 @@ describe('hubot-nextbus', () => {
       .get('/stops/BRO12WN/next.json')
       .replyWithFile(200, `${__dirname}/fixtures/stops-BRO12WN-next.json`);
     nock('https://gtfs.transitnownash.org')
+      .get('/stops/489/next.json')
+      .replyWithFile(200, `${__dirname}/fixtures/stops-BRO12WN-next.json`);
+    nock('https://gtfs.transitnownash.org')
       .get('/stops/PORGRESF/next.json')
       .replyWithFile(200, `${__dirname}/fixtures/stops-PORGRESF-next.json`);
   });
@@ -34,7 +37,7 @@ describe('hubot-nextbus', () => {
 
   describe('regular tests with latitude/longitude set', () => {
     beforeEach(async () => {
-      Date.now = () => Date.parse('Mon Feb 02 2026 21:41:49 GMT-0600 (Central Standard Time)');
+      Date.now = () => Date.parse('Sun Aug 30 2026 12:58:00 GMT-0500 (Central Daylight Time)');
       process.env.HUBOT_NEXTBUS_LAT_LON = '36.156751,-86.787397';
       room = await helper.createRoom();
     });
@@ -52,16 +55,17 @@ describe('hubot-nextbus', () => {
         ['alice', '@hubot nextbus'],
         [
           'hubot',
-          '⚠️  *Detour in effect on route 3 WEST END FROM DOWNTOWN*\n'
-        + '⚠️  *Detour in effect on route 3 WEST END TO DOWNTOWN*',
+          '⚠️  *6TH AVE & DEADERICK ST SB is not currently being served due to Construction.*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO TO DOWNTOWN*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO FROM DOWNTOWN*',
         ],
         [
           'hubot',
           '🚏 *BROADWAY AVE & 12TH AVE N WB*\n'
-        + '  9:50 PM    #3 - A -WHITE BRIDGE 🚌   in 9 minutes (On time)\n'
-        + '  10:00 PM   #7 - GREEN HILLS          in 19 minutes (On time)\n'
-        + '  10:05 PM   #3 - B - BELLEVUE         in 24 minutes (On time)\n'
-        + '  10:20 PM   #3 - A -WHITE BRIDGE      in 39 minutes (5m late)',
+        + '  1:01 PM   #7 - GREEN HILLS 🚌    in 4 minutes (On time)\n'
+        + '  1:06 PM   #3 - B - BELLEVUE 🚌   in 9 minutes (On time)\n'
+        + '  1:21 PM   #3 - A -WHITE BRIDGE   in 24 minutes (On time)\n'
+        + '  1:21 PM   #7 - GREEN HILLS       in 24 minutes (On time)',
         ],
       ]);
     });
@@ -74,16 +78,17 @@ describe('hubot-nextbus', () => {
         ['alice', '@hubot nextbus stop BRO12WN'],
         [
           'hubot',
-          '⚠️  *Detour in effect on route 3 WEST END FROM DOWNTOWN*\n'
-        + '⚠️  *Detour in effect on route 3 WEST END TO DOWNTOWN*',
+          '⚠️  *6TH AVE & DEADERICK ST SB is not currently being served due to Construction.*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO TO DOWNTOWN*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO FROM DOWNTOWN*',
         ],
         [
           'hubot',
           '🚏 *BROADWAY AVE & 12TH AVE N WB*\n'
-        + '  9:50 PM    #3 - A -WHITE BRIDGE 🚌   in 9 minutes (On time)\n'
-        + '  10:00 PM   #7 - GREEN HILLS          in 19 minutes (On time)\n'
-        + '  10:05 PM   #3 - B - BELLEVUE         in 24 minutes (On time)\n'
-        + '  10:20 PM   #3 - A -WHITE BRIDGE      in 39 minutes (5m late)',
+        + '  1:01 PM   #7 - GREEN HILLS 🚌    in 4 minutes (On time)\n'
+        + '  1:06 PM   #3 - B - BELLEVUE 🚌   in 9 minutes (On time)\n'
+        + '  1:21 PM   #3 - A -WHITE BRIDGE   in 24 minutes (On time)\n'
+        + '  1:21 PM   #7 - GREEN HILLS       in 24 minutes (On time)',
         ],
       ]);
     });
@@ -97,11 +102,11 @@ describe('hubot-nextbus', () => {
         ['hubot', 'List of nearby stops:'],
         [
           'hubot',
-          '- [BRO12WN] BROADWAY AVE & 12TH AVE N WB\n'
-        + '- [BRO12AEF] BROADWAY AVE & 12TH AVE EB\n'
-        + '- [11APORSF] 11TH AVE & PORTER ST SB\n'
-        + '- [11APORNN] 11TH AVE & PORTER ST NB\n'
-        + '- [BRO10AEN] BROADWAY & 10TH AVE EB',
+          '- `#489` - BROADWAY AVE & 12TH AVE N WB\n'
+        + '- `#4588` - BROADWAY AVE & 12TH AVE EB\n'
+        + '- `#5275` - 11TH AVE & PORTER ST SB\n'
+        + '- `#5281` - 11TH AVE & PORTER ST NB\n'
+        + '- `#4825` - BROADWAY & 10TH AVE EB',
         ],
       ]);
     });
@@ -109,7 +114,7 @@ describe('hubot-nextbus', () => {
 
   describe('regular tests with default stop ID set', () => {
     beforeEach(async () => {
-      Date.now = () => Date.parse('Mon Feb 02 2026 21:41:49 GMT-0600 (Central Standard Time)');
+      Date.now = () => Date.parse('Sun Aug 30 2026 12:58:00 GMT-0500 (Central Daylight Time)');
       process.env.HUBOT_NEXTBUS_LAT_LON = '0,0';
       process.env.HUBOT_NEXTBUS_STOP_ID = 'BRO12WN';
       room = await helper.createRoom();
@@ -129,15 +134,16 @@ describe('hubot-nextbus', () => {
         ['alice', '@hubot nextbus'],
         [
           'hubot',
-          '⚠️  *Detour in effect on route 3 WEST END FROM DOWNTOWN*\n'
-        + '⚠️  *Detour in effect on route 3 WEST END TO DOWNTOWN*'],
+          '⚠️  *6TH AVE & DEADERICK ST SB is not currently being served due to Construction.*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO TO DOWNTOWN*\n'
+        + '⚠️  *Detour in effect on route 7 HILLSBORO FROM DOWNTOWN*'],
         [
           'hubot',
           '🚏 *BROADWAY AVE & 12TH AVE N WB*\n'
-        + '  9:50 PM    #3 - A -WHITE BRIDGE 🚌   in 9 minutes (On time)\n'
-        + '  10:00 PM   #7 - GREEN HILLS          in 19 minutes (On time)\n'
-        + '  10:05 PM   #3 - B - BELLEVUE         in 24 minutes (On time)\n'
-        + '  10:20 PM   #3 - A -WHITE BRIDGE      in 39 minutes (5m late)',
+        + '  1:01 PM   #7 - GREEN HILLS 🚌    in 4 minutes (On time)\n'
+        + '  1:06 PM   #3 - B - BELLEVUE 🚌   in 9 minutes (On time)\n'
+        + '  1:21 PM   #3 - A -WHITE BRIDGE   in 24 minutes (On time)\n'
+        + '  1:21 PM   #7 - GREEN HILLS       in 24 minutes (On time)',
         ],
       ]);
     });
@@ -145,7 +151,7 @@ describe('hubot-nextbus', () => {
 
   describe('time spans days', () => {
     beforeEach(async () => {
-      Date.now = () => Date.parse('Mon Feb 02 2026 23:53:49 GMT-0600 (Central Standard Time)');
+      Date.now = () => Date.parse('Sun Aug 30 2026 12:58:00 GMT-0500 (Central Daylight Time)');
       room = await helper.createRoom();
     });
 
@@ -161,8 +167,10 @@ describe('hubot-nextbus', () => {
         [
           'hubot',
           '🚏 *PORTER RD & GREENWOOD AVE SB*\n'
-        + '  12:48 AM   #4 - DOWNTOWN      in an hour\n'
-        + '  1:48 AM    #4 - SHELBY PARK   in 2 hours',
+        + '  1:40 PM   #4 - DOWNTOWN   in 42 minutes\n'
+        + '  2:20 PM   #4 - DOWNTOWN   in an hour\n'
+        + '  3:00 PM   #4 - DOWNTOWN   in 2 hours\n'
+        + '  3:40 PM   #4 - DOWNTOWN   in 3 hours',
         ],
       ]);
     });

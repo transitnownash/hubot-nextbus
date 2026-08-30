@@ -1,8 +1,8 @@
 {
   "stop": {
-    "id": 217934,
+    "id": 289419,
     "stop_gid": "PORGRESF",
-    "stop_code": "PORGRESF",
+    "stop_code": "5086",
     "stop_name": "PORTER RD \u0026 GREENWOOD AVE SB",
     "stop_desc": null,
     "stop_lat": "36.188328",
@@ -14,15 +14,15 @@
     "parent_station_id": null,
     "stop_timezone": null,
     "wheelchair_boarding": "0",
-    "created_at": "2026-02-01T23:37:24.777-06:00",
-    "updated_at": "2026-02-01T23:37:24.777-06:00",
+    "created_at": "2026-08-30T04:05:15.505-05:00",
+    "updated_at": "2026-08-30T04:05:15.505-05:00",
     "child_stops": [],
     "parent_station": null
   },
   "next_trip": {
     "stop_time": {
-      "arrival_time": "24:48:00",
-      "departure_time": "24:48:00",
+      "arrival_time": "13:40:00",
+      "departure_time": "13:40:00",
       "stop_sequence": 15,
       "stop_headsign": null,
       "pickup_type": "0",
@@ -32,21 +32,21 @@
       "stop_gid": "PORGRESF"
     },
     "trip": {
-      "id": 1033473,
-      "trip_gid": "370513",
+      "id": 1385653,
+      "trip_gid": "386284",
       "trip_headsign": "DOWNTOWN",
       "trip_short_name": null,
       "direction_id": "1",
       "block_gid": "400",
-      "shape_gid": "19162",
-      "service_gid": "85.0.1",
-      "start_time": "24:39:00",
-      "end_time": "25:08:00",
+      "shape_gid": "19361",
+      "service_gid": "86.0.3",
+      "start_time": "13:29:00",
+      "end_time": "14:05:00",
       "route_gid": "4",
-      "route_id": 4906,
-      "calendar_id": 2530,
+      "route_id": 6534,
+      "calendar_id": 3506,
       "route": {
-        "id": 4906,
+        "id": 6534,
         "route_gid": "4",
         "route_short_name": "4",
         "route_long_name": "SHELBY",
@@ -57,8 +57,8 @@
         "route_text_color": "FFFFFF"
       },
       "shape": {
-        "id": 27123,
-        "shape_gid": "19162",
+        "id": 35655,
+        "shape_gid": "19361",
         "points": [
           {
             "lat": "36.210200",
@@ -1699,6 +1699,86 @@
           {
             "lat": "36.166590",
             "lon": "-86.781233"
+          },
+          {
+            "lat": "36.166563",
+            "lon": "-86.781289"
+          },
+          {
+            "lat": "36.166527",
+            "lon": "-86.781368"
+          },
+          {
+            "lat": "36.166447",
+            "lon": "-86.781547"
+          },
+          {
+            "lat": "36.166420",
+            "lon": "-86.781603"
+          },
+          {
+            "lat": "36.166322",
+            "lon": "-86.781794"
+          },
+          {
+            "lat": "36.166304",
+            "lon": "-86.781861"
+          },
+          {
+            "lat": "36.166304",
+            "lon": "-86.781928"
+          },
+          {
+            "lat": "36.166322",
+            "lon": "-86.781973"
+          },
+          {
+            "lat": "36.166349",
+            "lon": "-86.782018"
+          },
+          {
+            "lat": "36.166393",
+            "lon": "-86.782063"
+          },
+          {
+            "lat": "36.166429",
+            "lon": "-86.782085"
+          },
+          {
+            "lat": "36.166465",
+            "lon": "-86.782097"
+          },
+          {
+            "lat": "36.166510",
+            "lon": "-86.782108"
+          },
+          {
+            "lat": "36.166545",
+            "lon": "-86.782097"
+          },
+          {
+            "lat": "36.166572",
+            "lon": "-86.782085"
+          },
+          {
+            "lat": "36.166590",
+            "lon": "-86.782063"
+          },
+          {
+            "lat": "36.166617",
+            "lon": "-86.782007"
+          },
+          {
+            "lat": "36.166643",
+            "lon": "-86.781940"
+          },
+          {
+            "lat": "36.166688",
+            "lon": "-86.781839"
+          },
+          {
+            "lat": "36.166697",
+            "lon": "-86.781816"
           }
         ]
       }
@@ -1707,32 +1787,110 @@
   "upcoming_trips": [
     {
       "stop_time": {
-        "arrival_time": "25:48:00",
-        "departure_time": "25:48:00",
+        "arrival_time": "14:20:00",
+        "departure_time": "14:20:00",
         "stop_sequence": 15,
         "stop_headsign": null,
-        "pickup_type": "1",
+        "pickup_type": "0",
         "drop_off_type": "0",
         "shape_dist_traveled": "5.8082",
         "timepoint": "1",
         "stop_gid": "PORGRESF"
       },
       "trip": {
-        "id": 1033474,
-        "trip_gid": "370515",
-        "trip_headsign": "SHELBY PARK",
+        "id": 1385654,
+        "trip_gid": "386285",
+        "trip_headsign": "DOWNTOWN",
+        "trip_short_name": null,
+        "direction_id": "1",
+        "block_gid": "401",
+        "shape_gid": "19361",
+        "service_gid": "86.0.3",
+        "start_time": "14:09:00",
+        "end_time": "14:45:00",
+        "route_gid": "4",
+        "route_id": 6534,
+        "calendar_id": 3506,
+        "route": {
+          "id": 6534,
+          "route_gid": "4",
+          "route_short_name": "4",
+          "route_long_name": "SHELBY",
+          "route_desc": null,
+          "route_type": "3",
+          "route_url": null,
+          "route_color": "753CBE",
+          "route_text_color": "FFFFFF"
+        }
+      }
+    },
+    {
+      "stop_time": {
+        "arrival_time": "15:00:00",
+        "departure_time": "15:00:00",
+        "stop_sequence": 15,
+        "stop_headsign": null,
+        "pickup_type": "0",
+        "drop_off_type": "0",
+        "shape_dist_traveled": "5.8082",
+        "timepoint": "1",
+        "stop_gid": "PORGRESF"
+      },
+      "trip": {
+        "id": 1385655,
+        "trip_gid": "386286",
+        "trip_headsign": "DOWNTOWN",
         "trip_short_name": null,
         "direction_id": "1",
         "block_gid": "400",
-        "shape_gid": "19163",
-        "service_gid": "85.0.1",
-        "start_time": "25:39:00",
-        "end_time": "25:55:00",
+        "shape_gid": "19361",
+        "service_gid": "86.0.3",
+        "start_time": "14:49:00",
+        "end_time": "15:25:00",
         "route_gid": "4",
-        "route_id": 4906,
-        "calendar_id": 2530,
+        "route_id": 6534,
+        "calendar_id": 3506,
         "route": {
-          "id": 4906,
+          "id": 6534,
+          "route_gid": "4",
+          "route_short_name": "4",
+          "route_long_name": "SHELBY",
+          "route_desc": null,
+          "route_type": "3",
+          "route_url": null,
+          "route_color": "753CBE",
+          "route_text_color": "FFFFFF"
+        }
+      }
+    },
+    {
+      "stop_time": {
+        "arrival_time": "15:40:00",
+        "departure_time": "15:40:00",
+        "stop_sequence": 15,
+        "stop_headsign": null,
+        "pickup_type": "0",
+        "drop_off_type": "0",
+        "shape_dist_traveled": "5.8082",
+        "timepoint": "1",
+        "stop_gid": "PORGRESF"
+      },
+      "trip": {
+        "id": 1385656,
+        "trip_gid": "386287",
+        "trip_headsign": "DOWNTOWN",
+        "trip_short_name": null,
+        "direction_id": "1",
+        "block_gid": "401",
+        "shape_gid": "19361",
+        "service_gid": "86.0.3",
+        "start_time": "15:29:00",
+        "end_time": "16:05:00",
+        "route_gid": "4",
+        "route_id": 6534,
+        "calendar_id": 3506,
+        "route": {
+          "id": 6534,
           "route_gid": "4",
           "route_short_name": "4",
           "route_long_name": "SHELBY",

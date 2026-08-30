@@ -156,7 +156,7 @@ module.exports = (robot) => {
 
     getAPIResponse(`stops/near/${latlon}/1000.json?per_page=5`, msg, (stops) => {
       if (stops.total > 0) {
-        queryStopById(stops.data[0].stop_gid, msg);
+        queryStopById(stops.data[0].stop_code, msg);
         return;
       }
       msg.send(`No stops found near ${latlon}`);
@@ -168,7 +168,7 @@ module.exports = (robot) => {
     msg.send('List of nearby stops:');
     const output = [];
     stops.data.forEach((stop) => {
-      output.push(`- [${stop.stop_gid}] ${stop.stop_name}`);
+      output.push(`- \`#${stop.stop_code}\` - ${stop.stop_name}`);
     });
     msg.send(output.join('\n'));
   }));

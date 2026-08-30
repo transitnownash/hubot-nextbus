@@ -11,6 +11,22 @@ const helper = new Helper([
 // Alter time as test runs
 const originalDateNow = Date.now;
 
+const tripTableBlocks = (heading, rows) => ({
+  blocks: [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: heading, emoji: true },
+    },
+    {
+      type: 'table',
+      rows: [['Time', 'Route', 'ETA'], ...rows].map((row) => row.map((cell) => ({
+        type: 'raw_text',
+        text: cell,
+      }))),
+    },
+  ],
+});
+
 describe('hubot-nextbus for slack', () => {
   let room = null;
 
@@ -61,13 +77,12 @@ describe('hubot-nextbus for slack', () => {
         ],
         [
           'hubot',
-          '🚏 *BROADWAY AVE & 12TH AVE N WB*\n'
-        + '```\n'
-        + '  1:01 PM   #7 - GREEN HILLS 🚌    in 4 minutes (On time)\n'
-        + '  1:06 PM   #3 - B - BELLEVUE 🚌   in 9 minutes (On time)\n'
-        + '  1:21 PM   #3 - A -WHITE BRIDGE   in 24 minutes (On time)\n'
-        + '  1:21 PM   #7 - GREEN HILLS       in 24 minutes (On time)\n'
-        + '```',
+          tripTableBlocks('🚏 BROADWAY AVE & 12TH AVE N WB', [
+            ['1:01 PM', '#7 - GREEN HILLS 🚌', 'in 4 minutes (On time)'],
+            ['1:06 PM', '#3 - B - BELLEVUE 🚌', 'in 9 minutes (On time)'],
+            ['1:21 PM', '#3 - A -WHITE BRIDGE', 'in 24 minutes (On time)'],
+            ['1:21 PM', '#7 - GREEN HILLS', 'in 24 minutes (On time)'],
+          ]),
         ],
       ]);
     });
@@ -86,13 +101,12 @@ describe('hubot-nextbus for slack', () => {
         ],
         [
           'hubot',
-          '🚏 *BROADWAY AVE & 12TH AVE N WB*\n'
-        + '```\n'
-        + '  1:01 PM   #7 - GREEN HILLS 🚌    in 4 minutes (On time)\n'
-        + '  1:06 PM   #3 - B - BELLEVUE 🚌   in 9 minutes (On time)\n'
-        + '  1:21 PM   #3 - A -WHITE BRIDGE   in 24 minutes (On time)\n'
-        + '  1:21 PM   #7 - GREEN HILLS       in 24 minutes (On time)\n'
-        + '```',
+          tripTableBlocks('🚏 BROADWAY AVE & 12TH AVE N WB', [
+            ['1:01 PM', '#7 - GREEN HILLS 🚌', 'in 4 minutes (On time)'],
+            ['1:06 PM', '#3 - B - BELLEVUE 🚌', 'in 9 minutes (On time)'],
+            ['1:21 PM', '#3 - A -WHITE BRIDGE', 'in 24 minutes (On time)'],
+            ['1:21 PM', '#7 - GREEN HILLS', 'in 24 minutes (On time)'],
+          ]),
         ],
       ]);
     });

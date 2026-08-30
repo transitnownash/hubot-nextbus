@@ -84,6 +84,24 @@ module.exports = (robot) => {
     return alertLines.join('\n');
   };
 
+  const tripTableHeading = ['Time', 'Route', 'ETA'];
+
+  const formatSlackTripTable = (heading, rows) => ({
+    blocks: [
+      {
+        type: 'header',
+        text: { type: 'plain_text', text: heading, emoji: true },
+      },
+      {
+        type: 'table',
+        rows: [tripTableHeading, ...rows].map((row) => row.map((cell) => ({
+          type: 'raw_text',
+          text: String(cell ?? ''),
+        }))),
+      },
+    ],
+  });
+
   const queryStopById = (stopId, msg) => getAPIResponse('agencies.json', msg, (agencies) => {
     // Override timezone for moment() calls
     process.env.TZ = agencies.data[0].agency_timezone;
@@ -118,31 +136,31 @@ module.exports = (robot) => {
         return;
       }
 
-      const table = new AsciiTable();
-      nextTripsData.slice(0, 5).forEach((tripData) => {
+      const rows = nextTripsData.slice(0, 5).map((tripData) => {
         const tripTime = formatTripTimeAsMoment(tripData.stop_time.arrival_time);
         const realtimeStatus = getRealTimeStatus(tripData.stop_time);
         const hasVehicle = vehiclePositions
           && vehiclePositions.some((vp) => vp.trip && vp.trip.trip_id === tripData.trip.trip_gid);
         const busIndicator = hasVehicle ? ' 🚌' : '';
         const timeUntilText = realtimeStatus ? `${tripTime.fromNow()} (${realtimeStatus})` : tripTime.fromNow();
-        const columns = [
-          formatTripTimeAsMoment(tripData.stop_time.arrival_time).format('LT'),
+        return [
+          tripTime.format('LT'),
           `#${tripData.trip.route_gid} - ${tripData.trip.trip_headsign}${busIndicator}`,
           timeUntilText,
         ];
-        table.addRow(columns);
       });
       const adapterName = robot.adapterName ?? robot.adapter?.name ?? '';
-      table.removeBorder();
-      const tableOutput = table.toString().split('\n').map((line) => line.trimEnd()).join('\n');
-
-      const heading = `🚏 *${stop.stop_name}*`;
 
       if (/slack/i.test(adapterName)) {
-        msg.send(`${heading}\n\`\`\`\n${tableOutput}\n\`\`\``);
+        msg.send(formatSlackTripTable(`🚏 ${stop.stop_name}`, rows));
         return;
       }
+
+      const table = new AsciiTable();
+      rows.forEach((row) => table.addRow(row));
+      table.removeBorder();
+      const tableOutput = table.toString().split('\n').map((line) => line.trimEnd()).join('\n');
+      const heading = `🚏 *${stop.stop_name}*`;
       msg.send(`${heading}\n${tableOutput}`);
     });
   });

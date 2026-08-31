@@ -27,11 +27,12 @@ module.exports = (robot) => {
     robot.logger.debug(url);
     robot.http(url)
       .get()((err, res, body) => {
-        const response = JSON.parse(body);
         if (err) {
-          msg.send(err);
+          const detail = err.errors ? err.errors.map((e) => e.message).join(', ') : err.message;
+          msg.send(`Error fetching NextBus data: ${detail || err}`);
           return;
         }
+        const response = JSON.parse(body);
         if (response.error) {
           msg.send(response.error);
           return;
@@ -183,6 +184,10 @@ module.exports = (robot) => {
 
   // get a list of nearby stops
   robot.respond(/(?:bus|nextbus) stops$/i, (msg) => getAPIResponse(`stops/near/${latlon}/1000.json?per_page=5`, msg, (stops) => {
+    if (stops.total === 0) {
+      msg.send(`No stops found near ${latlon}`);
+      return;
+    }
     msg.send('List of nearby stops:');
     const output = [];
     stops.data.forEach((stop) => {
@@ -192,7 +197,7 @@ module.exports = (robot) => {
   }));
 
   // get a particular stop's next bus
-  robot.respond(/(?:bus|nextbus) stop ([A-Z0-9_]+)$/i, (msg) => {
+  robot.respond(/(?:bus|nextbus) stop #?([A-Z0-9_]+)$/i, (msg) => {
     const stopId = msg.match[1];
     robot.logger.debug(stopId);
     queryStopById(stopId, msg);

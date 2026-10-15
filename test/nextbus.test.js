@@ -1,6 +1,6 @@
 /* global describe beforeEach afterEach it expect */
 
-const nock = require('nock');
+const nock = require('nock').default;
 const Helper = require('./helpers/hubot-helper');
 
 const helper = new Helper('./src/nextbus.js');
